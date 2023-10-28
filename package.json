@@ -2,6 +2,7 @@
   "name": "booking-management-system",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https:/chaitanya-ranjan29.github.io/Booking-Management-System/",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
