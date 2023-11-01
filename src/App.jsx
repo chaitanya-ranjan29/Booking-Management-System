@@ -17,6 +17,7 @@ import GlobalStyles from "./styles/GlobalStyles";
 
 function App() {
 
+  // setting up the cache using React Query
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -25,6 +26,8 @@ function App() {
       }
     }
   })
+
+
 
   return (
     <QueryClientProvider client={queryClient} >
