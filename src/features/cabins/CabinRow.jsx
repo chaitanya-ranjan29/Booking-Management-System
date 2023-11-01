@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components';
 import { formatCurrency } from '../../utils/helpers';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteCabin } from '../../services/apiCabins';
 
 
 const TableRow = styled.div`
@@ -42,8 +44,28 @@ const Discount = styled.div`
     color: var(--color-green-700);
 `;
 
+
+
 function CabinRow({cabin}) {
+
     const {id: cabinID, name, maxCapacity, regularPrice, discount, image} = cabin;
+
+    const queryClient = useQueryClient();
+
+    const {isLoading: isDeleting, mutate} = useMutation({
+        mutationFn: deleteCabin,
+        onSuccess: () => {
+            alert('Cabin successfully deleted');
+            //invalidate the queries
+            queryClient.invalidateQueries({
+                queryKey: ['cabins'],
+            })
+            //as soon as the mutation is successful we want to refetch the data;
+        },
+        onError: (error) => console.log(error.message)
+    })
+
+
   return (
     <TableRow role='row' >
         <Img src={image} />
@@ -51,7 +73,7 @@ function CabinRow({cabin}) {
         <div>Fits upto {maxCapacity} guests </div>
         <Price> {formatCurrency(regularPrice)} </Price>
         <Discount> {formatCurrency(discount)} </Discount>
-        <button>Delete</button>
+        <button disabled={isDeleting} onClick={()=> mutate(cabinID)} >Delete</button>
     </TableRow>
   )
 }
