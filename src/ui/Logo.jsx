@@ -14,7 +14,7 @@ function Logo() {
   return (
     <StyledLogo>
         <Img src='https://cdn.worldvectorlogo.com/logos/bookingcom-1.svg' 
-        alt='' />
+        alt='logo-img' />
     </StyledLogo>
   )
 }
